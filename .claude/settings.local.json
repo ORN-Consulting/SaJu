@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu\")",
+      "Bash(ls -la \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu/mnt\")",
+      "Bash(ls -la \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu/.claude\")",
+      "Bash(find \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu/mnt\" -type f)",
+      "Bash(ls \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu/docs/\")",
+      "Bash(find \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu\" -type f -not -path \"*/.claude/*\" -not -path \"*/mnt/*\")",
+      "Bash(mkdir -p docs/design-docs)",
+      "Bash(mkdir -p docs/product-specs)",
+      "Bash(mv core-beliefs.md docs/design-docs/)",
+      "Bash(mv saju-engine-design.md docs/design-docs/)",
+      "Bash(mv tech-stack-decisions.md docs/design-docs/)",
+      "Bash(mv ui-design-decisions.md docs/design-docs/)",
+      "Bash(mv index.md docs/product-specs/)",
+      "Bash(mv new-user-onboarding.md docs/product-specs/)",
+      "Bash(mv birth-input.md docs/product-specs/)",
+      "Bash(mv saju-result.md docs/product-specs/)",
+      "Bash(mv error-states.md docs/product-specs/)",
+      "Bash(mv mnt/user-data/outputs/design-docs/index.md docs/design-docs/index.md)",
+      "Bash(rm -rf mnt)",
+      "Bash(find \"C:/Users/quasi/OneDrive - \\(주\\)오른경영컨설팅/문서/GitHub/SaJu\" -type f -not -path \"*/.claude/*\")"
+    ]
+  }
+}

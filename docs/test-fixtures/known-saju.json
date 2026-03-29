@@ -1,0 +1,223 @@
+{
+  "_comment": "검증용 사주 데이터셋. 만세력 기준으로 작성. 에이전트는 이 데이터로 계산 로직을 검증한다.",
+  "_source": "전통 만세력 기준 (야자시 방식, 본기만, 입춘 기준 년주)",
+  "cases": [
+    {
+      "id": "CASE-001",
+      "description": "1990년 3월 15일 오시 남성 (양력, 평범한 날짜)",
+      "input": {
+        "year": 1990,
+        "month": 3,
+        "day": 15,
+        "hour": 12,
+        "minute": 0,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "M"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "경", "branch": "오" },
+          "month": { "stem": "기", "branch": "묘" },
+          "day":   { "stem": "갑", "branch": "인" },
+          "hour":  { "stem": "경", "branch": "오" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 3, "화": 2, "토": 1, "금": 2, "수": 0 },
+          "dominant": "목",
+          "weak": "수",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신강",
+        "yongshin_element": "금"
+      },
+      "notes": "경오년 기묘월 갑인일 경오시. 입춘(2/4) 이후 → 경오년. 경칩(3/6) 이후 → 기묘월."
+    },
+    {
+      "id": "CASE-002",
+      "description": "2000년 1월 20일 자시 여성 (양력, 입춘 이전 → 전년도 년주)",
+      "input": {
+        "year": 2000,
+        "month": 1,
+        "day": 20,
+        "hour": 0,
+        "minute": 30,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "F"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "기", "branch": "묘" },
+          "month": { "stem": "정", "branch": "축" },
+          "day":   { "stem": "갑", "branch": "술" },
+          "hour":  { "stem": "갑", "branch": "자" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 3, "화": 1, "토": 2, "금": 0, "수": 2 },
+          "dominant": "목",
+          "weak": "금",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신약",
+        "yongshin_element": "수"
+      },
+      "notes": "2000년 1월 20일은 입춘(2/4) 이전이므로 년주는 기묘년(1999년 간지). 소한(1/6) 이후 대한 전 → 정축월. 자시(0:30)이므로 조자시 = 당일."
+    },
+    {
+      "id": "CASE-003",
+      "description": "1985년 7월 7일 사시 남성 (양력, 여름 사주)",
+      "input": {
+        "year": 1985,
+        "month": 7,
+        "day": 7,
+        "hour": 10,
+        "minute": 0,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "M"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "을", "branch": "축" },
+          "month": { "stem": "임", "branch": "오" },
+          "day":   { "stem": "기", "branch": "사" },
+          "hour":  { "stem": "기", "branch": "사" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 1, "화": 3, "토": 3, "금": 0, "수": 1 },
+          "dominant": "화",
+          "weak": "금",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신강",
+        "yongshin_element": "금"
+      },
+      "notes": "을축년 임오월 기사일 기사시. 소서(7/7) 경계 — 소서 시각에 따라 미월이 될 수 있으니 절기 시각 확인 필요. 화·토가 강한 여름 사주."
+    },
+    {
+      "id": "CASE-004",
+      "description": "1975년 12월 31일 해시 여성 (양력, 연말 야자시 직전)",
+      "input": {
+        "year": 1975,
+        "month": 12,
+        "day": 31,
+        "hour": 22,
+        "minute": 0,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "F"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "을", "branch": "묘" },
+          "month": { "stem": "무", "branch": "자" },
+          "day":   { "stem": "무", "branch": "인" },
+          "hour":  { "stem": "계", "branch": "해" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 2, "화": 0, "토": 2, "금": 0, "수": 4 },
+          "dominant": "수",
+          "weak": "화",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신약",
+        "yongshin_element": "화"
+      },
+      "notes": "을묘년 무자월 무인일 계해시. 22시는 해시(21~23). 동지(12/22) 이후 → 무자월. 수(水)가 매우 강한 겨울 사주."
+    },
+    {
+      "id": "CASE-005",
+      "description": "1995년 6월 15일 생시 모름 남성 (3주 분석)",
+      "input": {
+        "year": 1995,
+        "month": 6,
+        "day": 15,
+        "hour": null,
+        "minute": 0,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "M"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "을", "branch": "해" },
+          "month": { "stem": "임", "branch": "오" },
+          "day":   { "stem": "병", "branch": "진" },
+          "hour":  null
+        },
+        "fiveElements": {
+          "distribution": { "목": 1, "화": 2, "토": 1, "금": 0, "수": 2 },
+          "dominant": "화",
+          "weak": "금",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신강",
+        "yongshin_element": "금"
+      },
+      "notes": "을해년 임오월 병진일 시주 없음. 6글자 카운팅. 망종(6/6) 이후 → 임오월."
+    },
+    {
+      "id": "CASE-006",
+      "description": "1988년 2월 4일 인시 여성 (양력, 입춘 당일 — 경계값)",
+      "input": {
+        "year": 1988,
+        "month": 2,
+        "day": 4,
+        "hour": 4,
+        "minute": 0,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "F"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "무", "branch": "진" },
+          "month": { "stem": "갑", "branch": "인" },
+          "day":   { "stem": "정", "branch": "미" },
+          "hour":  { "stem": "임", "branch": "인" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 3, "화": 1, "토": 2, "금": 0, "수": 2 },
+          "dominant": "목",
+          "weak": "금",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신약",
+        "yongshin_element": "화"
+      },
+      "notes": "1988년 입춘 시각이 인시 이전이면 무진년, 이후이면 정묘년. 이 케이스는 입춘 이후로 가정(무진년). 절기 시각에 따라 년주가 달라지는 경계값 — lunar-javascript의 절기 시각으로 판정. 소한 이후 입춘 이전/이후 경계에서 월주도 주의."
+    },
+    {
+      "id": "CASE-007",
+      "description": "1992년 11월 15일 야자시 남성 (양력, 23:30 — 야자시 경계)",
+      "input": {
+        "year": 1992,
+        "month": 11,
+        "day": 15,
+        "hour": 23,
+        "minute": 30,
+        "isLunar": false,
+        "isLeapMonth": false,
+        "gender": "M"
+      },
+      "expected": {
+        "pillars": {
+          "year":  { "stem": "임", "branch": "신" },
+          "month": { "stem": "신", "branch": "해" },
+          "day":   { "stem": "경", "branch": "진" },
+          "hour":  { "stem": "병", "branch": "자" }
+        },
+        "fiveElements": {
+          "distribution": { "목": 0, "화": 1, "토": 1, "금": 3, "수": 3 },
+          "dominant": "금",
+          "weak": "목",
+          "balance": "imbalanced"
+        },
+        "dayStrength": "신강",
+        "yongshin_element": "목"
+      },
+      "notes": "임신년 신해월 경진일 병자시. 23:30은 야자시 → 당일(15일)의 자시. 일주는 경진 유지 (익일로 넘기지 않음). 입동(11/7) 이후 → 신해월."
+    }
+  ]
+}
