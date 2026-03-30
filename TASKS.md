@@ -38,42 +38,42 @@
 ## Phase 1: 데이터 레이어
 
 ### Task 1-1: 타입 정의 (`lib/saju/types.ts`)
-- [ ] `ARCHITECTURE.md` 섹션 7의 모든 타입 구현: Stem, Branch, Element, YinYang, TenGod, Pillar, Saju
-- [ ] `ARCHITECTURE.md` 섹션 6-1의 통합 타입 구현: BirthInput, SajuAnalysisResult, SajuAnalysisError, SajuAnalysisResponse, YongshinResult, InterpretationResult, FiveElementsResult, TenGodsResult
-- [ ] TypeScript strict 컴파일 통과
+- [x] `ARCHITECTURE.md` 섹션 7의 모든 타입 구현: Stem, Branch, Element, YinYang, TenGod, Pillar, Saju
+- [x] `ARCHITECTURE.md` 섹션 6-1의 통합 타입 구현: BirthInput, SajuAnalysisResult, SajuAnalysisError, SajuAnalysisResponse, YongshinResult, InterpretationResult, FiveElementsResult, TenGodsResult
+- [x] TypeScript strict 컴파일 통과
 
 **완료 조건**: `npx tsc --noEmit` 에러 없음
 
 ### Task 1-2: 상수 테이블 (`lib/saju/constants.ts`)
-- [ ] STEMS (천간 10개 배열)
-- [ ] BRANCHES (지지 12개 배열)
-- [ ] STEM_ELEMENT: 천간→오행 매핑 (갑→목, 을→목, 병→화, ...)
-- [ ] STEM_YINYANG: 천간→음양 매핑 (갑→양, 을→음, ...)
-- [ ] BRANCH_MAIN_ELEMENT: 지지→본기 오행 매핑 (자→수, 축→토, ...)
-- [ ] ELEMENT_CYCLE: 상생 관계 (목→화→토→금→수→목)
-- [ ] ELEMENT_CONTROL: 상극 관계 (목→토, 토→수, ...)
-- [ ] GENERATING_ELEMENT: 나를 생하는 오행 매핑 (목←수, 화←목, ...)
-- [ ] CONTROLLING_ELEMENT: 나를 극하는 오행 매핑 (목←금, 화←수, ...)
-- [ ] MONTH_STEM_START: 오호결원 매핑 (`saju-engine-design.md` 섹션 3-1)
-- [ ] HOUR_STEM_START: 오서결원 매핑 (`saju-engine-design.md` 섹션 3-2)
-- [ ] HANJA 매핑: 한글→한자 (갑→甲, 자→子, 목→木, ...)
-- [ ] TypeScript strict 컴파일 통과
-- [ ] 천간 10개, 지지 12개, 오행 5개 — 누락·중복 없음 확인
+- [x] STEMS (천간 10개 배열)
+- [x] BRANCHES (지지 12개 배열)
+- [x] STEM_ELEMENT: 천간→오행 매핑
+- [x] STEM_YINYANG: 천간→음양 매핑
+- [x] BRANCH_MAIN_ELEMENT: 지지→본기 오행 매핑
+- [x] ELEMENT_GENERATES / ELEMENT_CONTROLS: 상생/상극 관계
+- [x] GENERATING_ELEMENT / CONTROLLING_ELEMENT: 생아/극아 관계
+- [x] MONTH_STEM_START: 오호결원 매핑
+- [x] HOUR_STEM_START: 오서결원 매핑
+- [x] HANJA 매핑 (STEM_HANJA, BRANCH_HANJA, ELEMENT_HANJA)
+- [x] getTenGod() 십성 판정 함수, hourToBranchIndex() 시진 매핑
+- [x] ELEMENT_COLORS: 오행 색상 (Tailwind + HEX)
+- [x] TypeScript strict 컴파일 통과
 
 **완료 조건**: 모든 매핑이 빈 값 없이 정의됨, `npx tsc --noEmit` 통과
 
 ### Task 1-3: 에러 상수 (`lib/errors.ts`)
-- [ ] `error-states.md` 섹션 7의 에러 코드 전체 구현 (E001~F001)
-- [ ] ERROR_MESSAGES 객체: `{ code, message, solution }` 구조
+- [x] `error-states.md` 섹션 7의 에러 코드 전체 구현 (E001~E011, W001~W002)
+- [x] ERROR_MESSAGES 객체: `{ code, message, solution }` 구조
+- [x] FALLBACK_MESSAGES: 해석 텍스트 누락 시 대체 텍스트
 
 **완료 조건**: `error-states.md`의 모든 에러 코드가 상수에 존재
 
 ### Task 1-4: 해석 텍스트 (`data/interpretations/`)
-- [ ] `day-stems.json` — 10천간별 특성 텍스트 (nature, strong, weak)
-- [ ] `ten-gods.json` — 10십성별 해석 텍스트 (title, description, keywords)
-- [ ] `yongshin.json` — 5오행별 용신 해석 (meaning, lifestyle, direction, season)
-- [ ] `five-elements.json` — 오행 과다/부족 시 한 줄 요약 템플릿
-- [ ] fallback 텍스트 포함
+- [x] `day-stems.json` — 10천간별 특성 텍스트 (nature, strong, weak)
+- [x] `ten-gods.json` — 10십성별 해석 텍스트 (title, description, keywords)
+- [x] `yongshin.json` — 5오행별 용신 해석 (meaning, lifestyle, direction, season)
+- [x] `five-elements.json` — 오행 과다/부족 시 한 줄 요약 템플릿
+- [x] fallback 텍스트 포함 (lib/errors.ts에 통합)
 
 **완료 조건**: 모든 JSON이 유효하고, 빈 문자열이 없음
 
@@ -265,6 +265,6 @@
 
 ## 현재 진행 상태
 
-**현재 Phase**: Phase 0 완료 → Phase 1 시작
-**마지막 완료 Task**: Task 0-3 (Next.js 프로젝트 생성)
-**다음 할 일**: Task 1-1 (타입 정의 lib/saju/types.ts)
+**현재 Phase**: Phase 1 완료 → Phase 2 시작
+**마지막 완료 Task**: Task 1-4 (해석 텍스트)
+**다음 할 일**: Task 2-1 (만세력 계산 lib/saju/calendar.ts)
