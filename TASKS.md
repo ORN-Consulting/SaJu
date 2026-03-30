@@ -23,12 +23,13 @@
 **완료 조건**: `git status`가 clean, `git log`에 초기 커밋 존재
 
 ### Task 0-3: Next.js 프로젝트 생성
-- [ ] `saju-app/` 디렉토리에 `create-next-app` 실행 (TypeScript, Tailwind, App Router, ESLint)
-- [ ] `tsconfig.json`에 strict mode 확인
-- [ ] `vitest` 설치 및 기본 설정
-- [ ] `lunar-javascript` 설치
-- [ ] `npm run dev`로 기본 페이지 표시 확인
-- [ ] 커밋: `chore: Next.js 프로젝트 스캐폴딩`
+- [x] `saju-app/` 디렉토리에 `create-next-app` 실행 (TypeScript, Tailwind, App Router, ESLint)
+- [x] `tsconfig.json`에 strict mode 확인
+- [x] `vitest` 설치 및 기본 설정
+- [x] `lunar-javascript` 설치
+- [x] `npm run build` 성공 확인
+- [x] 커밋: `chore: Next.js 프로젝트 스캐폴딩`
+- 참고: Next.js 16은 한국어 경로에서 Turbopack UTF-8 버그 → Next.js 15 (Webpack) 사용
 
 **완료 조건**: `npm run build` 성공, `npm run dev`로 localhost 접속 가능
 
@@ -264,6 +265,6 @@
 
 ## 현재 진행 상태
 
-**현재 Phase**: Phase 0
-**마지막 완료 Task**: Task 0-2 (git 초기화)
-**다음 할 일**: Task 0-3 (Next.js 프로젝트 생성)
+**현재 Phase**: Phase 0 완료 → Phase 1 시작
+**마지막 완료 Task**: Task 0-3 (Next.js 프로젝트 생성)
+**다음 할 일**: Task 1-1 (타입 정의 lib/saju/types.ts)
