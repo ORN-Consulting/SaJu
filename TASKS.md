@@ -8,17 +8,17 @@
 ## Phase 0: 인프라 구축
 
 ### Task 0-1: 문서 디렉토리 정리
-- [ ] `docs/design-docs/` 생성 후 설계 문서 이동 (core-beliefs, saju-engine-design, tech-stack-decisions, ui-design-decisions, design-docs/index.md)
-- [ ] `docs/product-specs/` 생성 후 기능 명세 이동 (index, new-user-onboarding, birth-input, saju-result, error-states)
-- [ ] 문서 내 상대 경로 참조가 있으면 갱신
-- [ ] CLAUDE.md, TASKS.md, AGENTS.md, ARCHITECTURE.md는 루트에 유지
+- [x] `docs/design-docs/` 생성 후 설계 문서 이동 (core-beliefs, saju-engine-design, tech-stack-decisions, ui-design-decisions, design-docs/index.md)
+- [x] `docs/product-specs/` 생성 후 기능 명세 이동 (index, new-user-onboarding, birth-input, saju-result, error-states)
+- [x] 문서 내 상대 경로 참조가 있으면 갱신
+- [x] CLAUDE.md, TASKS.md, AGENTS.md, ARCHITECTURE.md는 루트에 유지
 
 **완료 조건**: 모든 문서가 `docs/` 하위에 정리되고, 문서 간 링크가 깨지지 않음
 
 ### Task 0-2: git 초기화
-- [ ] `git init`
-- [ ] `.gitignore` 생성 (node_modules, .next, .env, .DS_Store, *.tsbuildinfo)
-- [ ] 현재 상태를 초기 커밋: `chore: 프로젝트 초기화 — 설계 문서 및 하네스 구성`
+- [x] `git init`
+- [x] `.gitignore` 생성 (node_modules, .next, .env, .DS_Store, *.tsbuildinfo)
+- [x] 현재 상태를 초기 커밋: `chore: 프로젝트 초기화 — 설계 문서 및 하네스 구성`
 
 **완료 조건**: `git status`가 clean, `git log`에 초기 커밋 존재
 
@@ -264,6 +264,6 @@
 
 ## 현재 진행 상태
 
-**현재 Phase**: Phase 0 (미시작)
-**마지막 완료 Task**: — (초기 상태)
-**다음 할 일**: Task 0-1 (문서 디렉토리 정리)
+**현재 Phase**: Phase 0
+**마지막 완료 Task**: Task 0-2 (git 초기화)
+**다음 할 일**: Task 0-3 (Next.js 프로젝트 생성)
