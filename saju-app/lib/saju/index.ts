@@ -23,6 +23,7 @@ import { analyzeFiveElements } from './five-elements';
 import { calculateTenGods } from './ten-gods';
 import { determineYongshin } from './yongshin';
 import { calculateDaeun } from './daeun';
+import { analyzeSinsal } from './sinsal';
 import { STEM_ELEMENT, ELEMENT_HANJA } from './constants';
 import { ERROR_MESSAGES, FALLBACK_MESSAGES } from '../errors';
 
@@ -46,6 +47,7 @@ export function analyzeSaju(input: BirthInput): SajuAnalysisResponse {
     const yongshin = determineYongshin(pillars.day.stem, pillars, fiveElements, hasHour);
     const interpretation = buildInterpretation(pillars, fiveElements, tenGods, yongshin);
     const daeun = calculateDaeun(input);
+    const sinsal = analyzeSinsal(pillars, hasHour);
 
     return {
       success: true,
@@ -57,6 +59,7 @@ export function analyzeSaju(input: BirthInput): SajuAnalysisResponse {
       yongshin,
       interpretation,
       daeun,
+      sinsal,
     };
   } catch (error) {
     const errorInfo = ERROR_MESSAGES.E011;
@@ -144,3 +147,4 @@ export { analyzeFiveElements } from './five-elements';
 export { calculateTenGods } from './ten-gods';
 export { determineYongshin } from './yongshin';
 export { calculateDaeun } from './daeun';
+export { analyzeSinsal } from './sinsal';

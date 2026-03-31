@@ -127,6 +127,7 @@ export interface SajuAnalysisResult {
   yongshin: YongshinResult;
   interpretation: InterpretationResult;
   daeun: DaeunResult;
+  sinsal: SinsalResult;
 }
 
 /** 통합 분석 실패 */
@@ -171,6 +172,99 @@ export interface DaeunResult {
   startMonths: number;   // 첫 대운까지 월(月) 오프셋
   startDays: number;     // 첫 대운까지 일(日) 오프셋
   daeuns: Daeun[];       // 대운 목록 (8개)
+}
+
+// ──────────────────────────────────────
+// 신살 (3단계)
+// ──────────────────────────────────────
+
+export type SinsalType = '역마' | '도화' | '화개';
+
+/** 신살 항목 하나 */
+export interface SinsalEntry {
+  type: SinsalType;
+  targetBranch: Branch;      // 이 지지가 있으면 해당 신살
+  basisBranch: Branch;       // 기준 지지 (일지 또는 년지)
+  basisLabel: '일지' | '년지';
+  found: boolean;            // 다른 기둥에서 발견 여부
+  foundIn: ('년지' | '월지' | '시지' | '일지')[];
+}
+
+/** 신살 분석 결과 */
+export interface SinsalResult {
+  entries: SinsalEntry[];    // 전체 분석 항목
+  detected: SinsalEntry[];   // 발견된 신살만
+}
+
+// ──────────────────────────────────────
+// 궁합 (3단계)
+// ──────────────────────────────────────
+
+/** 천간합 항목 */
+export interface CheonganHapEntry {
+  stem1: Stem;
+  stem2: Stem;
+  resultElement: Element;
+  position1: string;
+  position2: string;
+}
+
+/** 지지 관계 유형 */
+export type JijiRelationType = '육합' | '삼합' | '충';
+
+/** 지지 관계 항목 */
+export interface JijiRelationEntry {
+  type: JijiRelationType;
+  branch1: Branch;
+  branch2: Branch;
+  resultElement?: Element;
+  position1: string;
+  position2: string;
+}
+
+/** 오행 상성 결과 */
+export interface ElementCompatibility {
+  person1Dominant: Element;
+  person1Weak: Element;
+  person2Dominant: Element;
+  person2Weak: Element;
+  complementary: boolean;
+  description: string;
+}
+
+/** 일간 관계 */
+export interface DayStemRelation {
+  person1DayStem: Stem;
+  person2DayStem: Stem;
+  tenGod1to2: TenGod;
+  tenGod2to1: TenGod;
+  hasCheonganHap: boolean;
+  description: string;
+}
+
+/** 궁합 점수 항목 */
+export interface CompatibilityScore {
+  category: string;
+  score: number;
+  maxScore: number;
+  description: string;
+}
+
+/** 궁합 등급 */
+export type CompatibilityGrade = '천생연분' | '좋은 궁합' | '보통' | '노력 필요' | '주의 필요';
+
+/** 궁합 분석 결과 */
+export interface CompatibilityResult {
+  person1: SajuAnalysisResult;
+  person2: SajuAnalysisResult;
+  cheonganHaps: CheonganHapEntry[];
+  jijiRelations: JijiRelationEntry[];
+  elementCompatibility: ElementCompatibility;
+  dayStemRelation: DayStemRelation;
+  scores: CompatibilityScore[];
+  totalScore: number;
+  grade: CompatibilityGrade;
+  summary: string;
 }
 
 // ──────────────────────────────────────

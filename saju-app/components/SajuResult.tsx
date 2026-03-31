@@ -6,6 +6,7 @@ import FiveElementsChart from './FiveElementsChart';
 import TenGodsAnalysis from './TenGodsAnalysis';
 import YongshinResult from './YongshinResult';
 import DaeunTimeline from './DaeunTimeline';
+import SinsalAnalysis from './SinsalAnalysis';
 
 interface SajuResultProps {
   result: SajuAnalysisResult;
@@ -46,8 +47,9 @@ export default function SajuResult({ result, onReset }: SajuResultProps) {
         />
       ),
     },
+    { delay: 1000, content: <SinsalAnalysis result={result.sinsal} /> },
     {
-      delay: 1000,
+      delay: 1200,
       content: (
         <DaeunTimeline
           daeun={result.daeun}
@@ -73,7 +75,7 @@ export default function SajuResult({ result, onReset }: SajuResultProps) {
         {/* 다시 분석하기 */}
         <div
           className="text-center animate-fade-in-up"
-          style={{ animationDelay: '1200ms' }}
+          style={{ animationDelay: '1400ms' }}
         >
           <button
             onClick={onReset}

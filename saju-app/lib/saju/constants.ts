@@ -222,3 +222,93 @@ export const ELEMENT_COLORS: Record<Element, { bg: string; text: string; hex: st
   '금': { bg: 'bg-slate-100', text: 'text-slate-600', hex: '#94A3B8' },
   '수': { bg: 'bg-blue-100', text: 'text-blue-700', hex: '#3B82F6' },
 };
+
+// ──────────────────────────────────────
+// 신살 (3단계) — 삼합 기준 역마·도화·화개
+// ──────────────────────────────────────
+
+import type { SinsalType } from './types';
+
+/** 삼합 그룹별 신살 대상 지지 */
+const SAMHAP_GROUPS: Branch[][] = [
+  ['인', '오', '술'],
+  ['사', '유', '축'],
+  ['신', '자', '진'],
+  ['해', '묘', '미'],
+];
+
+const SINSAL_TARGETS: Record<SinsalType, Branch[]> = {
+  '역마': ['신', '해', '인', '사'],
+  '도화': ['묘', '오', '유', '자'],
+  '화개': ['술', '축', '진', '미'],
+};
+
+/** 지지 → 삼합 그룹 인덱스 (0~3) */
+function getSamhapGroupIndex(branch: Branch): number {
+  for (let i = 0; i < SAMHAP_GROUPS.length; i++) {
+    if (SAMHAP_GROUPS[i].includes(branch)) return i;
+  }
+  return 0;
+}
+
+/** 신살 테이블: SINSAL_TABLE[신살종류][지지] → 대상 지지 */
+export const SINSAL_TABLE: Record<SinsalType, Record<Branch, Branch>> = (() => {
+  const table = {} as Record<SinsalType, Record<Branch, Branch>>;
+  const types: SinsalType[] = ['역마', '도화', '화개'];
+  for (const type of types) {
+    table[type] = {} as Record<Branch, Branch>;
+    for (const branch of BRANCHES) {
+      const groupIdx = getSamhapGroupIndex(branch);
+      table[type][branch] = SINSAL_TARGETS[type][groupIdx];
+    }
+  }
+  return table;
+})();
+
+/** 신살 한자 (UI 표시용) */
+export const SINSAL_HANJA: Record<SinsalType, string> = {
+  '역마': '驛馬',
+  '도화': '桃花',
+  '화개': '華蓋',
+};
+
+// ──────────────────────────────────────
+// 궁합 (3단계) — 천간합, 지지 육합/충/삼합
+// ──────────────────────────────────────
+
+/** 천간합(天干合): [간1, 간2, 합화오행] */
+export const CHEONGAN_HAP: [Stem, Stem, Element][] = [
+  ['갑', '기', '토'],
+  ['을', '경', '금'],
+  ['병', '신', '수'],
+  ['정', '임', '목'],
+  ['무', '계', '화'],
+];
+
+/** 지지 육합(地支六合): [지1, 지2, 합화오행] */
+export const JIJI_YUKHAP: [Branch, Branch, Element][] = [
+  ['자', '축', '토'],
+  ['인', '해', '목'],
+  ['묘', '술', '화'],
+  ['진', '유', '금'],
+  ['사', '신', '수'],
+  ['오', '미', '토'],
+];
+
+/** 지지 충(地支沖): [지1, 지2] */
+export const JIJI_CHUNG: [Branch, Branch][] = [
+  ['자', '오'],
+  ['축', '미'],
+  ['인', '신'],
+  ['묘', '유'],
+  ['진', '술'],
+  ['사', '해'],
+];
+
+/** 지지 삼합(三合): [지1, 지2, 지3, 합화오행] */
+export const JIJI_SAMHAP: [Branch, Branch, Branch, Element][] = [
+  ['인', '오', '술', '화'],
+  ['사', '유', '축', '금'],
+  ['신', '자', '진', '수'],
+  ['해', '묘', '미', '목'],
+];
