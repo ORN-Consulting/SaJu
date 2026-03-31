@@ -78,23 +78,23 @@ export default function Home() {
       <FeatureCards />
 
       {/* 모드 탭 */}
-      <div className="flex justify-center gap-2 pt-8 px-6">
+      <div className="flex justify-center gap-4 pt-8 px-6">
         <button
           onClick={() => switchMode('saju')}
-          className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+          className={`px-10 py-4 rounded-xl text-lg font-bold transition-all ${
             mode === 'saju'
-              ? 'bg-gray-900 text-white shadow-md'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'bg-gray-900 text-white shadow-lg'
+              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           사주 분석
         </button>
         <button
           onClick={() => switchMode('compatibility')}
-          className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+          className={`px-10 py-4 rounded-xl text-lg font-bold transition-all ${
             mode === 'compatibility'
-              ? 'bg-pink-600 text-white shadow-md'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'bg-pink-600 text-white shadow-lg'
+              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           궁합 분석

@@ -13,12 +13,6 @@ export default function HeroSection() {
           전통 명리학에 기반한 사주팔자 분석,<br className="hidden sm:block" />
           지금 바로 무료로 확인하세요.
         </p>
-        <button
-          onClick={() => document.getElementById('input-form')?.scrollIntoView({ behavior: 'smooth' })}
-          className="inline-block px-8 py-3 bg-gray-900 text-white rounded-lg text-lg font-medium hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl"
-        >
-          사주 분석 시작하기
-        </button>
       </div>
     </section>
   );
