@@ -126,6 +126,7 @@ export interface SajuAnalysisResult {
   tenGods: TenGodsResult;
   yongshin: YongshinResult;
   interpretation: InterpretationResult;
+  daeun: DaeunResult;
 }
 
 /** 통합 분석 실패 */
@@ -138,6 +139,39 @@ export interface SajuAnalysisError {
 
 /** analyzeSaju()의 반환 타입 */
 export type SajuAnalysisResponse = SajuAnalysisResult | SajuAnalysisError;
+
+// ──────────────────────────────────────
+// 대운/세운 (2단계)
+// ──────────────────────────────────────
+
+/** 세운(流年) — 연도별 운세 */
+export interface Saeun {
+  year: number;     // 해당 년도
+  age: number;      // 나이 (세는 나이)
+  pillar: Pillar;   // 해당 년도 천간지지
+  ganZhi: string;   // 한자 간지 (참고용)
+}
+
+/** 대운(大運) 하나 — 10년 단위 운세 */
+export interface Daeun {
+  index: number;      // 대운 순번 (1부터 시작)
+  pillar: Pillar;     // 천간지지
+  ganZhi: string;     // 한자 간지 (참고용)
+  startAge: number;   // 시작 나이 (세는 나이)
+  endAge: number;     // 종료 나이
+  startYear: number;  // 시작 년도
+  endYear: number;    // 종료 년도
+  saeuns: Saeun[];    // 이 대운 기간의 세운 (10개)
+}
+
+/** 대운 계산 결과 */
+export interface DaeunResult {
+  isForward: boolean;    // 순행(true) / 역행(false)
+  startYears: number;    // 첫 대운까지 연(年) 오프셋
+  startMonths: number;   // 첫 대운까지 월(月) 오프셋
+  startDays: number;     // 첫 대운까지 일(日) 오프셋
+  daeuns: Daeun[];       // 대운 목록 (8개)
+}
 
 // ──────────────────────────────────────
 // 입력 폼 에러

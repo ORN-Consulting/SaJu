@@ -6,6 +6,12 @@ declare module 'lunar-javascript' {
     getYear(): number;
     getMonth(): number;
     getDay(): number;
+    getHour(): number;
+    subtract(solar: Solar): number;
+    subtractMinute(solar: Solar): number;
+    toYmd(): string;
+    toYmdHms(): string;
+    next(days: number): Solar;
   }
 
   export class Lunar {
@@ -16,6 +22,39 @@ declare module 'lunar-javascript' {
     getYear(): number;
     getMonth(): number;
     getDay(): number;
+    getNextJie(wholeDay?: boolean): JieQi;
+    getPrevJie(wholeDay?: boolean): JieQi;
+  }
+
+  export interface JieQi {
+    getName(): string;
+    getSolar(): Solar;
+  }
+
+  export interface LiuNian {
+    year: number;
+    age: number;
+    getGanZhi(): string;
+  }
+
+  export interface DaYun {
+    getIndex(): number;
+    getStartAge(): number;
+    getEndAge(): number;
+    getStartYear(): number;
+    getEndYear(): number;
+    getGanZhi(): string;
+    getLiuNian(n?: number): LiuNian[];
+  }
+
+  export interface Yun {
+    isForward(): boolean;
+    getStartYear(): number;
+    getStartMonth(): number;
+    getStartDay(): number;
+    getStartHour(): number;
+    getDaYun(n?: number): DaYun[];
+    getLunar(): Lunar;
   }
 
   export class EightChar {
@@ -31,6 +70,8 @@ declare module 'lunar-javascript' {
     getDayZhi(): string;
     getTimeGan(): string;
     getTimeZhi(): string;
+    getYun(gender: number, sect?: number): Yun;
+    getLunar(): Lunar;
   }
 
   export class LunarYear {

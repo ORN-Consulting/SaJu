@@ -263,8 +263,26 @@
 
 ---
 
+---
+
+## 2단계 — 운세 흐름
+
+### Task 5-1: 대운/세운 계산 및 UI
+- [x] `lib/saju/types.ts`에 Daeun, DaeunResult, Saeun 타입 추가
+- [x] `SajuAnalysisResult`에 `daeun: DaeunResult` 필드 추가
+- [x] `types/lunar-javascript.d.ts`에 Yun / DaYun / LiuNian / JieQi 타입 선언 추가
+- [x] `lib/saju/daeun.ts` — EightChar.getYun() API 활용, 8개 대운 + 세운 산출
+- [x] `lib/saju/index.ts` — analyzeSaju() 파이프라인에 calculateDaeun() 통합
+- [x] `components/DaeunTimeline.tsx` — 대운 타임라인 UI (현재 대운 하이라이트, 세운 펼치기)
+- [x] `components/SajuResult.tsx` — 대운 섹션 추가
+- [x] `npm run build` 성공 확인
+
+**완료 조건**: 대운 타임라인 렌더링, 현재 대운 하이라이트, 세운 펼치기 동작, 빌드 성공
+
+---
+
 ## 현재 진행 상태
 
-**현재 Phase**: Phase 1 완료 → Phase 2 시작
-**마지막 완료 Task**: Task 1-4 (해석 텍스트)
-**다음 할 일**: Task 2-1 (만세력 계산 lib/saju/calendar.ts)
+**현재 Phase**: MVP (Phase 0~4) 완료, 2단계 Task 5-1 완료
+**배포 URL**: https://saju-app-iota.vercel.app
+**다음 할 일**: 2단계 Task 5-2 — 합·충·형·파 관계 분석 (미착수)

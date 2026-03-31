@@ -5,6 +5,7 @@ import PillarDisplay from './PillarDisplay';
 import FiveElementsChart from './FiveElementsChart';
 import TenGodsAnalysis from './TenGodsAnalysis';
 import YongshinResult from './YongshinResult';
+import DaeunTimeline from './DaeunTimeline';
 
 interface SajuResultProps {
   result: SajuAnalysisResult;
@@ -45,6 +46,15 @@ export default function SajuResult({ result, onReset }: SajuResultProps) {
         />
       ),
     },
+    {
+      delay: 1000,
+      content: (
+        <DaeunTimeline
+          daeun={result.daeun}
+          birthYear={result.input.year}
+        />
+      ),
+    },
   ];
 
   return (
@@ -63,7 +73,7 @@ export default function SajuResult({ result, onReset }: SajuResultProps) {
         {/* 다시 분석하기 */}
         <div
           className="text-center animate-fade-in-up"
-          style={{ animationDelay: '1000ms' }}
+          style={{ animationDelay: '1200ms' }}
         >
           <button
             onClick={onReset}
