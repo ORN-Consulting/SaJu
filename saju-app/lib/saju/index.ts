@@ -119,16 +119,45 @@ function buildInterpretation(
     ? `${ysData.meaning} ${ysData.personality}`
     : FALLBACK_MESSAGES.yongshin(yongshin.yongshin);
 
-  // 5. 종합 해석 (5~6문장 조합)
+  // 5. 종합 해석 (일반인 친화적 표현)
   const stemInfo = stemData?.nature ?? '';
-  const strengthText = yongshin.dayStrength === '신강'
-    ? `${dayElement}(${ELEMENT_HANJA[dayElement]})의 기운이 강한 신강한 사주예요.`
-    : `${dayElement}(${ELEMENT_HANJA[dayElement]})의 기운을 보충해야 하는 신약한 사주예요.`;
-  const ysText = ysData?.meaning ?? '';
-  const ysPersonality = ysData?.personality ?? '';
-  const heeshinText = `${yongshin.heeshin}(${ELEMENT_HANJA[yongshin.heeshin]})도 도움이 되는 희신이에요.`;
 
-  const comprehensiveReading = [stemInfo, strengthText, ysText, ysPersonality, heeshinText]
+  // 오행을 일상 언어로 풀어서 설명
+  const ELEMENT_PLAIN: Record<Element, string> = {
+    '목': '나무', '화': '불', '토': '흙', '금': '쇠', '수': '물',
+  };
+
+  // 신강/신약을 전문 용어 없이 설명
+  const strengthText = yongshin.dayStrength === '신강'
+    ? `타고난 ${ELEMENT_PLAIN[dayElement]}의 기운이 강한 편이에요. 자기 주도적이고 에너지가 넘치는 타입이에요.`
+    : `타고난 ${ELEMENT_PLAIN[dayElement]}의 기운이 다소 약한 편이에요. 주변의 도움과 환경이 뒷받침되면 더 크게 빛날 수 있어요.`;
+
+  // 용신을 '나에게 도움이 되는 기운'으로 자연스럽게 설명
+  const ysPersonality = ysData?.personality ?? '';
+
+  // 희신·기신을 실생활 조언으로 전환
+  const ELEMENT_LIFESTYLE: Record<Element, string> = {
+    '목': '자연 속 산책이나 새로운 배움',
+    '화': '활발한 사교 활동이나 운동',
+    '토': '규칙적인 생활과 안정된 환경',
+    '금': '체계적인 계획과 정돈된 공간',
+    '수': '독서나 명상, 여행',
+  };
+
+  const heeshinAdvice = `일상에서 ${ELEMENT_LIFESTYLE[yongshin.heeshin] ?? '균형 잡힌 활동'}을 가까이하면 운기를 높이는 데 도움이 돼요.`;
+
+  // 색상·계절 조언 추가
+  const ysLifestyle = (() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data = (yongshinData as any)[yongshin.yongshin] as { color?: string; season?: string } | undefined;
+    if (!data) return '';
+    const parts: string[] = [];
+    if (data.color) parts.push(data.color);
+    if (data.season) parts.push(data.season);
+    return parts.join(' ');
+  })();
+
+  const comprehensiveReading = [stemInfo, strengthText, ysPersonality, heeshinAdvice, ysLifestyle]
     .filter(Boolean)
     .join(' ');
 
