@@ -206,15 +206,15 @@ function analyzeDayStemRelation(
 
   let description: string;
   if (hasCheonganHap) {
-    description = '일간끼리 천간합을 이루어 깊은 인연이 있어요.';
+    description = '두 사람의 핵심 성격이 자연스럽게 하나로 어우러지는 조합이에요. 마치 자석처럼 서로 끌리는 깊은 인연이 있어요.';
   } else if (['비견', '겁재'].includes(tenGod1to2)) {
-    description = '같은 기운을 가져 동지이자 경쟁 관계예요.';
+    description = '비슷한 성격과 가치관을 가지고 있어요. 서로를 잘 이해하지만, 때로는 양보가 필요할 수 있어요.';
   } else if (['정관', '정인', '정재'].includes(tenGod1to2)) {
-    description = '안정적이고 조화로운 관계를 이루기 좋아요.';
+    description = '서로 다른 장점이 조화를 이루는 관계예요. 한 사람이 이끌면 다른 사람이 안정감을 주는 균형 잡힌 조합이에요.';
   } else if (['편관', '상관'].includes(tenGod1to2)) {
-    description = '긴장감이 있지만 서로를 성장시키는 관계예요.';
+    description = '서로 자극을 주고받는 역동적인 관계예요. 긴장감이 있지만 그만큼 서로를 성장시킬 수 있어요.';
   } else {
-    description = '다양한 면에서 서로에게 자극이 되는 관계예요.';
+    description = '서로 다른 매력을 가진 관계예요. 상대방에게서 내가 가지지 못한 면을 배울 수 있어요.';
   }
 
   return { person1DayStem: s1, person2DayStem: s2, tenGod1to2, tenGod2to1, hasCheonganHap, description };
@@ -240,26 +240,26 @@ function calculateScores(
     (h) => h.position1 !== '일간' && h.position2 !== '일간',
   ).length;
   const hapScore = Math.min(dayHapBonus + otherHaps * 3, 15);
-  scores.push({ category: '천간합', score: hapScore, maxScore: 15, description: `${cheonganHaps.length}개의 천간합` });
+  scores.push({ category: '성격 조화', score: hapScore, maxScore: 15, description: `성격끼리 자연스럽게 맞는 부분 ${cheonganHaps.length}개` });
 
   // 2. 지지 육합 점수 (최대 15)
   const yukhaps = jijiRelations.filter((r) => r.type === '육합');
   const yukhapScore = Math.min(yukhaps.length * 5, 15);
-  scores.push({ category: '지지 육합', score: yukhapScore, maxScore: 15, description: `${yukhaps.length}개의 육합` });
+  scores.push({ category: '유대감', score: yukhapScore, maxScore: 15, description: `서로 끌리는 조합 ${yukhaps.length}개` });
 
   // 3. 지지 삼합 점수 (최대 10)
   const samhaps = jijiRelations.filter((r) => r.type === '삼합');
   const samhapScore = Math.min(samhaps.length * 5, 10);
-  scores.push({ category: '지지 삼합', score: samhapScore, maxScore: 10, description: `${samhaps.length}개의 삼합` });
+  scores.push({ category: '팀워크', score: samhapScore, maxScore: 10, description: `함께하면 시너지가 나는 조합 ${samhaps.length}개` });
 
   // 4. 지지 충 감점 (최대 -15)
   const chungs = jijiRelations.filter((r) => r.type === '충');
   const chungScore = Math.max(-chungs.length * 5, -15);
-  scores.push({ category: '지지 충', score: chungScore, maxScore: 0, description: `${chungs.length}개의 충` });
+  scores.push({ category: '갈등 요소', score: chungScore, maxScore: 0, description: `부딪힐 수 있는 부분 ${chungs.length}개` });
 
   // 5. 오행 상성 (최대 10)
   const elementScore = elementCompat.complementary ? 10 : 3;
-  scores.push({ category: '오행 상성', score: elementScore, maxScore: 10, description: elementCompat.description });
+  scores.push({ category: '기운 보완', score: elementScore, maxScore: 10, description: elementCompat.description });
 
   // 6. 일간 관계 (최대 15)
   let dayStemScore = 5; // 기본
@@ -268,7 +268,7 @@ function calculateScores(
   else if (['식신', '편인', '편재'].includes(dayStemRelation.tenGod1to2)) dayStemScore = 8;
   else if (['비견', '겁재'].includes(dayStemRelation.tenGod1to2)) dayStemScore = 6;
   else if (['편관', '상관'].includes(dayStemRelation.tenGod1to2)) dayStemScore = 3;
-  scores.push({ category: '일간 관계', score: dayStemScore, maxScore: 15, description: dayStemRelation.description });
+  scores.push({ category: '핵심 궁합', score: dayStemScore, maxScore: 15, description: dayStemRelation.description });
 
   // 기본 35점 + 가감점
   const rawTotal = 35 + scores.reduce((sum, s) => sum + s.score, 0);
@@ -340,17 +340,36 @@ function buildSummary(
   };
   parts.push(gradeText[grade]);
 
+  // 천간합 → 성격 조화로 풀어 설명
   if (haps.length > 0) {
-    parts.push(`천간합이 ${haps.length}개 있어 자연스러운 조화가 있어요.`);
+    const hapCount = haps.length;
+    if (hapCount >= 3) {
+      parts.push('두 사람의 성격이 여러 면에서 자연스럽게 맞아떨어져요. 함께 있으면 편안한 느낌을 받을 수 있어요.');
+    } else if (hapCount >= 2) {
+      parts.push('서로의 성격이 잘 어우러지는 부분이 있어요. 대화가 잘 통하고 자연스럽게 가까워질 수 있어요.');
+    } else {
+      parts.push('성격이 자연스럽게 맞는 부분이 있어 서로에게 끌리는 힘이 있어요.');
+    }
   }
 
+  // 육합 → 유대감으로 설명
   const yukhaps = relations.filter((r) => r.type === '육합');
-  const chungs = relations.filter((r) => r.type === '충');
   if (yukhaps.length > 0) {
-    parts.push(`지지 육합이 ${yukhaps.length}개로 안정적인 유대감이 있어요.`);
+    if (yukhaps.length >= 2) {
+      parts.push('서로를 향한 끌림이 강하고, 함께하면 안정감을 느낄 수 있는 관계예요.');
+    } else {
+      parts.push('서로에 대한 자연스러운 유대감이 있어, 오래 함께할 수 있는 바탕이 있어요.');
+    }
   }
+
+  // 충 → 갈등 요소로 설명
+  const chungs = relations.filter((r) => r.type === '충');
   if (chungs.length > 0) {
-    parts.push(`지지 충이 ${chungs.length}개 있어 갈등에 주의가 필요해요.`);
+    if (chungs.length >= 2) {
+      parts.push('성격이나 가치관이 부딪히는 부분이 있어요. 서로의 차이를 인정하고 배려하는 것이 중요해요.');
+    } else {
+      parts.push('의견이 엇갈리는 부분이 있을 수 있어요. 대화로 풀어가면 오히려 관계가 깊어질 수 있어요.');
+    }
   }
 
   parts.push(elementCompat.description);

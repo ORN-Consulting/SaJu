@@ -1,6 +1,6 @@
 'use client';
 
-import type { CompatibilityResult as CompatResult, CompatibilityGrade } from '@/lib/saju/types';
+import type { CompatibilityResult as CompatResult, CompatibilityGrade, Element } from '@/lib/saju/types';
 import {
   STEM_HANJA,
   BRANCH_HANJA,
@@ -21,6 +21,11 @@ const GRADE_STYLES: Record<CompatibilityGrade, { bg: string; text: string; borde
   '보통': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200', emoji: '🤝' },
   '노력 필요': { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200', emoji: '💪' },
   '주의 필요': { bg: 'bg-gray-50', text: 'text-gray-700', border: 'border-gray-200', emoji: '⚡' },
+};
+
+/** 오행을 쉬운 말로 */
+const ELEMENT_PLAIN: Record<Element, string> = {
+  '목': '나무', '화': '불', '토': '흙', '금': '쇠', '수': '물',
 };
 
 function PersonSummary({ label, result }: { label: string; result: CompatResult['person1'] }) {
@@ -103,100 +108,128 @@ export default function CompatibilityResultView({ result, onReset }: Compatibili
         </div>
       ),
     },
-    // 천간합
+    // 성격 조화 (구 천간합)
     {
       delay: 400,
       content: (
         <div>
-          <h3 className="text-lg font-bold text-gray-900 mb-2">천간합(天干合)</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-1">성격 조화</h3>
+          <p className="text-xs text-gray-400 mb-3">두 사람의 성격이 자연스럽게 맞아떨어지는 부분이에요</p>
           {result.cheonganHaps.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-2">
               {result.cheonganHaps.map((h, i) => {
                 const elColor = ELEMENT_COLORS[h.resultElement];
                 return (
-                  <span key={i} className={`px-3 py-1.5 rounded-full text-sm font-medium ${elColor.bg} ${elColor.text}`}>
-                    {h.stem1}({STEM_HANJA[h.stem1]}) + {h.stem2}({STEM_HANJA[h.stem2]}) → {h.resultElement}({ELEMENT_HANJA[h.resultElement]})
-                    <span className="text-xs opacity-70 ml-1">{h.position1}·{h.position2}</span>
-                  </span>
+                  <div key={i} className={`rounded-lg p-3 ${elColor.bg}`}>
+                    <p className={`text-sm font-medium ${elColor.text}`}>
+                      {h.stem1}({STEM_HANJA[h.stem1]}) + {h.stem2}({STEM_HANJA[h.stem2]}) → {ELEMENT_PLAIN[h.resultElement]}의 기운으로 합쳐져요
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      두 글자가 만나 새로운 조화를 이루는 좋은 조합이에요
+                    </p>
+                  </div>
                 );
               })}
             </div>
           ) : (
-            <p className="text-sm text-gray-400">천간합이 없습니다</p>
+            <p className="text-sm text-gray-400 bg-gray-50 rounded-lg p-3">
+              성격이 직접적으로 맞물리는 조합은 없지만, 다른 부분에서 궁합을 확인하세요
+            </p>
           )}
         </div>
       ),
     },
-    // 지지 관계
+    // 끌림과 갈등 (구 지지 관계)
     {
       delay: 600,
       content: (
         <div>
-          <h3 className="text-lg font-bold text-gray-900 mb-2">지지 관계(地支 合·沖)</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-1">끌림과 갈등</h3>
+          <p className="text-xs text-gray-400 mb-3">서로에 대한 끌림, 시너지, 그리고 주의할 점이에요</p>
           <div className="space-y-2">
             {yukhaps.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div>
                 {yukhaps.map((r, i) => (
-                  <span key={`y${i}`} className="px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-700">
-                    육합: {r.branch1}({BRANCH_HANJA[r.branch1]}) + {r.branch2}({BRANCH_HANJA[r.branch2]})
-                    {r.resultElement && ` → ${r.resultElement}`}
-                  </span>
+                  <div key={`y${i}`} className="rounded-lg p-3 bg-green-50 mb-2">
+                    <p className="text-sm font-medium text-green-700">
+                      💚 서로 끌리는 조합: {r.branch1}({BRANCH_HANJA[r.branch1]}) + {r.branch2}({BRANCH_HANJA[r.branch2]})
+                      {r.resultElement && ` → ${ELEMENT_PLAIN[r.resultElement]}의 기운`}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      자연스러운 유대감이 생기는 관계예요. 함께하면 안정감을 느낄 수 있어요.
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
             {samhaps.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div>
                 {samhaps.map((r, i) => (
-                  <span key={`s${i}`} className="px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
-                    삼합: {r.position1} → {r.position2}
-                  </span>
+                  <div key={`s${i}`} className="rounded-lg p-3 bg-blue-50 mb-2">
+                    <p className="text-sm font-medium text-blue-700">
+                      💙 시너지 조합: {r.position1} → {r.position2}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      세 가지 기운이 모여 강한 팀워크를 만들어요. 함께 무언가를 이루기 좋은 조합이에요.
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
             {chungs.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div>
                 {chungs.map((r, i) => (
-                  <span key={`c${i}`} className="px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-700">
-                    충: {r.branch1}({BRANCH_HANJA[r.branch1]}) ↔ {r.branch2}({BRANCH_HANJA[r.branch2]})
-                  </span>
+                  <div key={`c${i}`} className="rounded-lg p-3 bg-red-50 mb-2">
+                    <p className="text-sm font-medium text-red-700">
+                      ⚡ 부딪힐 수 있는 부분: {r.branch1}({BRANCH_HANJA[r.branch1]}) ↔ {r.branch2}({BRANCH_HANJA[r.branch2]})
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      성격이나 가치관이 반대인 부분이에요. 차이를 인정하면 오히려 성장의 기회가 돼요.
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
             {yukhaps.length === 0 && samhaps.length === 0 && chungs.length === 0 && (
-              <p className="text-sm text-gray-400">특별한 지지 관계가 없습니다</p>
+              <p className="text-sm text-gray-400 bg-gray-50 rounded-lg p-3">
+                특별히 강하게 끌리거나 부딪히는 부분은 없어요. 무난한 관계예요.
+              </p>
             )}
           </div>
         </div>
       ),
     },
-    // 오행 상성 + 일간 관계
+    // 기운 보완 + 핵심 관계
     {
       delay: 800,
       content: (
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">오행 상성</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-1">기운 보완</h3>
+            <p className="text-xs text-gray-400 mb-3">서로의 부족한 부분을 채워줄 수 있는지 살펴봐요</p>
             <div className="bg-gray-50 rounded-xl p-4">
               <div className="grid grid-cols-2 gap-4 text-center text-sm mb-3">
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">첫 번째</p>
+                  <p className="text-gray-500 text-xs mb-1">첫 번째 사람</p>
                   <p>
-                    강: <span className={ELEMENT_COLORS[result.elementCompatibility.person1Dominant].text + ' font-bold'}>
-                      {result.elementCompatibility.person1Dominant}({ELEMENT_HANJA[result.elementCompatibility.person1Dominant]})
-                    </span>{' '}
-                    약: <span className={ELEMENT_COLORS[result.elementCompatibility.person1Weak].text + ' font-bold'}>
-                      {result.elementCompatibility.person1Weak}({ELEMENT_HANJA[result.elementCompatibility.person1Weak]})
+                    강한 기운: <span className={ELEMENT_COLORS[result.elementCompatibility.person1Dominant].text + ' font-bold'}>
+                      {ELEMENT_PLAIN[result.elementCompatibility.person1Dominant]}
+                    </span>
+                    <br />
+                    부족한 기운: <span className={ELEMENT_COLORS[result.elementCompatibility.person1Weak].text + ' font-bold'}>
+                      {ELEMENT_PLAIN[result.elementCompatibility.person1Weak]}
                     </span>
                   </p>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs mb-1">두 번째</p>
+                  <p className="text-gray-500 text-xs mb-1">두 번째 사람</p>
                   <p>
-                    강: <span className={ELEMENT_COLORS[result.elementCompatibility.person2Dominant].text + ' font-bold'}>
-                      {result.elementCompatibility.person2Dominant}({ELEMENT_HANJA[result.elementCompatibility.person2Dominant]})
-                    </span>{' '}
-                    약: <span className={ELEMENT_COLORS[result.elementCompatibility.person2Weak].text + ' font-bold'}>
-                      {result.elementCompatibility.person2Weak}({ELEMENT_HANJA[result.elementCompatibility.person2Weak]})
+                    강한 기운: <span className={ELEMENT_COLORS[result.elementCompatibility.person2Dominant].text + ' font-bold'}>
+                      {ELEMENT_PLAIN[result.elementCompatibility.person2Dominant]}
+                    </span>
+                    <br />
+                    부족한 기운: <span className={ELEMENT_COLORS[result.elementCompatibility.person2Weak].text + ' font-bold'}>
+                      {ELEMENT_PLAIN[result.elementCompatibility.person2Weak]}
                     </span>
                   </p>
                 </div>
@@ -205,18 +238,18 @@ export default function CompatibilityResultView({ result, onReset }: Compatibili
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">일간 관계</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-1">핵심 관계</h3>
+            <p className="text-xs text-gray-400 mb-3">두 사람의 본질적인 성격이 만들어내는 관계예요</p>
             <div className="bg-gray-50 rounded-xl p-4 text-center">
-              <p className="text-lg font-bold text-gray-800 mb-1">
+              <p className="text-lg font-bold text-gray-800 mb-2">
                 {result.dayStemRelation.person1DayStem}({STEM_HANJA[result.dayStemRelation.person1DayStem]}) ↔{' '}
                 {result.dayStemRelation.person2DayStem}({STEM_HANJA[result.dayStemRelation.person2DayStem]})
               </p>
-              <p className="text-sm text-gray-500 mb-2">
-                {result.dayStemRelation.tenGod1to2} / {result.dayStemRelation.tenGod2to1}
-                {result.dayStemRelation.hasCheonganHap && (
-                  <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700">천간합</span>
-                )}
-              </p>
+              {result.dayStemRelation.hasCheonganHap && (
+                <p className="text-xs px-3 py-1 rounded-full bg-red-100 text-red-700 inline-block mb-2">
+                  자연스럽게 하나로 합쳐지는 조합
+                </p>
+              )}
               <p className="text-sm text-gray-600">{result.dayStemRelation.description}</p>
             </div>
           </div>
@@ -228,7 +261,8 @@ export default function CompatibilityResultView({ result, onReset }: Compatibili
       delay: 1000,
       content: (
         <div>
-          <h3 className="text-lg font-bold text-gray-900 mb-2">점수 상세</h3>
+          <h3 className="text-lg font-bold text-gray-900 mb-1">점수 상세</h3>
+          <p className="text-xs text-gray-400 mb-3">각 항목별로 궁합 점수가 어떻게 구성되었는지 보여드려요</p>
           <div className="space-y-2">
             {result.scores.map((s) => (
               <div key={s.category} className="flex items-center gap-3">
